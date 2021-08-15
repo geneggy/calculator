@@ -87,6 +87,36 @@ class Calculator {
   }
 }
 
+const calculatorGridEl = document.querySelector(".calculator-grid");
+const calculatorBtns = [
+  { text: "AC", dataType: "data-all-clear", class: "span-two" },
+  { text: "DEL", dataType: "data-delete" },
+  { text: "÷", dataType: "data-operation" },
+  { text: "7", dataType: "data-number" },
+  { text: "8", dataType: "data-number" },
+  { text: "9", dataType: "data-number" },
+  { text: "*", dataType: "data-operation" },
+  { text: "4", dataType: "data-number" },
+  { text: "5", dataType: "data-number" },
+  { text: "6", dataType: "data-number" },
+  { text: "+", dataType: "data-operation" },
+  { text: "1", dataType: "data-number" },
+  { text: "2", dataType: "data-number" },
+  { text: "3", dataType: "data-number" },
+  { text: "-", dataType: "data-operation" },
+  { text: ".", dataType: "data-number" },
+  { text: "0", dataType: "data-number" },
+  { text: "=", dataType: "data-equals", class: "span-two" },
+];
+
+calculatorBtns.forEach((btn) => {
+  let btnEl = document.createElement("button");
+  btnEl.textContent = btn.text;
+  btnEl.setAttribute(btn.dataType, "");
+  if (btn.class) btnEl.classList.add(btn.class);
+  calculatorGridEl.appendChild(btnEl);
+});
+
 const numberBtns = document.querySelectorAll("[data-number]");
 const operationBtns = document.querySelectorAll("[data-operation]");
 const equalsBtn = document.querySelector("[data-equals]");
