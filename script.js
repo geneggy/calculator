@@ -17,6 +17,7 @@ class Calculator {
 
   appendNumber(number) {
     if (number === "." && this.currentOperand.includes(".")) return;
+    if (this.previousOperand === undefined) this.clear();
     this.currentOperand = this.currentOperand.toString() + number.toString();
   }
 
@@ -53,7 +54,7 @@ class Calculator {
     }
     this.currentOperand = computation;
     this.operation = undefined;
-    this.prevoiusOperand = "";
+    this.previousOperand = undefined;
   }
 
   getDisplayNumber(number) {
