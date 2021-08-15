@@ -90,30 +90,31 @@ class Calculator {
 
 const calculatorGridEl = document.querySelector(".calculator-grid");
 const calculatorBtns = [
-  { text: "AC", dataType: "data-all-clear", class: "span-two" },
-  { text: "DEL", dataType: "data-delete" },
-  { text: "÷", dataType: "data-operation" },
-  { text: "7", dataType: "data-number" },
-  { text: "8", dataType: "data-number" },
-  { text: "9", dataType: "data-number" },
-  { text: "*", dataType: "data-operation" },
-  { text: "4", dataType: "data-number" },
-  { text: "5", dataType: "data-number" },
-  { text: "6", dataType: "data-number" },
-  { text: "+", dataType: "data-operation" },
-  { text: "1", dataType: "data-number" },
-  { text: "2", dataType: "data-number" },
-  { text: "3", dataType: "data-number" },
-  { text: "-", dataType: "data-operation" },
-  { text: ".", dataType: "data-number" },
-  { text: "0", dataType: "data-number" },
-  { text: "=", dataType: "data-equals", class: "span-two" },
+  { text: "AC", dataType: "data-all-clear", class: "span-two", dataKey: "27" },
+  { text: "DEL", dataType: "data-delete", dataKey: "8" },
+  { text: "÷", dataType: "data-operation", dataKey: "191" },
+  { text: "7", dataType: "data-number", dataKey: "55" },
+  { text: "8", dataType: "data-number", dataKey: "56" },
+  { text: "9", dataType: "data-number", dataKey: "57" },
+  { text: "*", dataType: "data-operation", dataKey: "56" },
+  { text: "4", dataType: "data-number", dataKey: "52" },
+  { text: "5", dataType: "data-number", dataKey: "53" },
+  { text: "6", dataType: "data-number", dataKey: "54" },
+  { text: "+", dataType: "data-operation", dataKey: "187" },
+  { text: "1", dataType: "data-number", dataKey: "49" },
+  { text: "2", dataType: "data-number", dataKey: "50" },
+  { text: "3", dataType: "data-number", dataKey: "51" },
+  { text: "-", dataType: "data-operation", dataKey: "189" },
+  { text: ".", dataType: "data-number", dataKey: "190" },
+  { text: "0", dataType: "data-number", dataKey: "48" },
+  { text: "=", dataType: "data-equals", class: "span-two", dataKey: "187" },
 ];
 
 calculatorBtns.forEach((btn) => {
   let btnEl = document.createElement("button");
   btnEl.textContent = btn.text;
   btnEl.setAttribute(btn.dataType, "");
+  btnEl.setAttribute("data-key", btn.dataKey);
   if (btn.class) btnEl.classList.add(btn.class);
   calculatorGridEl.appendChild(btnEl);
 });
@@ -133,6 +134,17 @@ numberBtns.forEach((button) => {
     calculator.updateDisplay();
   });
 });
+
+numberBtns.forEach((button) => {
+  button.addEventListener("keydown", function (e) {
+    if (e.keyCode == button.dataset.key) {
+      calculator.appendNumber(button.innerText);
+      calculator.updateDisplay();
+    }
+  });
+});
+
+//if keydown equals data-key, fire off calculator.appendNuber && calculator.updatedisplay
 
 operationBtns.forEach((button) => {
   button.addEventListener("click", () => {
