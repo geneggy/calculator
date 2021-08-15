@@ -12,7 +12,7 @@ class Calculator {
   }
 
   delete() {
-    if (!this.previousOperand) return;
+    if (this.previousOperand === undefined) return;
     this.currentOperand = this.currentOperand.toString().slice(0, -1);
   }
 
@@ -23,6 +23,10 @@ class Calculator {
   }
 
   chooseOperation(operation) {
+    if (this.operation) {
+      this.operation = operation;
+    }
+
     if (this.currentOperand === "") return;
     if (this.previousOperand !== "") {
       this.compute();
@@ -154,7 +158,7 @@ const clear = () => {
   calculator.updateDisplay();
 };
 
-function buttonPress(e) {
+function keyPress(e) {
   const button = document.querySelector(`button[data-key="${e.keyCode}"]`);
   if (!button) return;
   if (button.hasAttribute("data-number")) {
@@ -198,4 +202,4 @@ deleteBtn.addEventListener("click", () => {
   del();
 });
 
-window.addEventListener("keydown", buttonPress);
+window.addEventListener("keydown", keyPress);
