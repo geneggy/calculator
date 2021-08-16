@@ -16,6 +16,15 @@ class Calculator {
     this.currentOperand = this.currentOperand.toString().slice(0, -1);
   }
 
+  toggle() {
+    if (this.previousOperand === undefined) return;
+    if (!isNaN(this.currentOperand[0])) {
+      this.currentOperand = "-" + this.currentOperand;
+    } else {
+      this.currentOperand = this.currentOperand.toString().slice(1);
+    }
+  }
+
   appendNumber(number) {
     if (number === "." && this.currentOperand.includes(".")) return;
     if (this.previousOperand === undefined) this.clear();
@@ -96,7 +105,7 @@ class Calculator {
 const calculatorGridEl = document.querySelector(".calculator-grid");
 const calculatorBtns = [
   { text: "AC", dataType: "data-all-clear", class: "span-two", dataKey: "27" },
-  { text: "DEL", dataType: "data-delete", dataKey: "8" },
+  { text: "±", dataType: "data-toggle" },
   { text: "÷", dataType: "data-operation", dataKey: "191" },
   { text: "7", dataType: "data-number", dataKey: "55" },
   { text: "8", dataType: "data-number", dataKey: "56" },
@@ -112,7 +121,8 @@ const calculatorBtns = [
   { text: "-", dataType: "data-operation", dataKey: "189" },
   { text: ".", dataType: "data-number", dataKey: "190" },
   { text: "0", dataType: "data-number", dataKey: "48" },
-  { text: "=", dataType: "data-equals", class: "span-two", dataKey: "187" },
+  { text: "DEL", dataType: "data-delete", dataKey: "8" },
+  { text: "=", dataType: "data-equals", dataKey: "187" },
 ];
 
 calculatorBtns.forEach((btn) => {
@@ -129,6 +139,7 @@ const operationBtns = document.querySelectorAll("[data-operation]");
 const equalsBtn = document.querySelector("[data-equals]");
 const deleteBtn = document.querySelector("[data-delete]");
 const allClearBtn = document.querySelector("[data-all-clear]");
+const toggleBtn = document.querySelector("[data-toggle]");
 const previousTextEl = document.querySelector("[data-previous]");
 const currentTextEl = document.querySelector("[data-current]");
 const calculator = new Calculator(previousTextEl, currentTextEl);
@@ -158,6 +169,11 @@ const clear = () => {
   calculator.updateDisplay();
 };
 
+const toggle = () => {
+  calculator.toggle();
+  calculator.updateDisplay();
+};
+
 function keyPress(e) {
   const button = document.querySelector(`button[data-key="${e.keyCode}"]`);
   if (!button) return;
@@ -177,6 +193,10 @@ function keyPress(e) {
     clear();
   }
 }
+
+toggleBtn.addEventListener("click", () => {
+  toggle();
+});
 
 numberBtns.forEach((button) => {
   button.addEventListener("click", () => {
