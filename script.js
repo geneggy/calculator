@@ -62,6 +62,7 @@ class Calculator {
         break;
       case "÷":
         computation = prev / current;
+
         break;
       default:
         return;
@@ -76,7 +77,10 @@ class Calculator {
     const integerDigits = parseFloat(stringNumber.split(".")[0]);
     const decimalDigits = stringNumber.split(".")[1];
     let integerDisplay;
-    if (isNaN(integerDigits)) {
+    console.log(number);
+    if (number === Infinity || number === -Infinity) {
+      integerDisplay = "TIME PARADOX!!!!";
+    } else if (isNaN(integerDigits)) {
       integerDisplay = "";
     } else {
       integerDisplay = integerDigits.toLocaleString("en", {
@@ -89,6 +93,7 @@ class Calculator {
       return integerDisplay;
     }
   }
+
   updateDisplay() {
     this.currentTextEl.innerText = this.getDisplayNumber(this.currentOperand);
 
